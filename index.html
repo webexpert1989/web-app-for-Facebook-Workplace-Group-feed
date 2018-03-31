@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang = "en">
+<head>
+	<meta charset = "UTF-8">
+	<title>Facebook Workplace Group App</title>
+	<meta name = "viewport" content = "width=device-width, initial-scale=1, maximum-scale=1"/>
+
+	<!-- libraries -->
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+	<script type="text/javascript" src="./assets/vendor/lib.js"></script>
+
+	<script type="text/javascript" src="./assets/vendor/jquery.fancybox/jquery.fancybox.min.js"></script>
+	<link href="./assets/vendor/jquery.fancybox/jquery.fancybox.min.css" rel="stylesheet">
+
+	<!-- google font -->
+	<link href="https://fonts.googleapis.com/css?family=Raleway:300,400,700" rel="stylesheet">
+
+	<!-- Custom Css -->
+	<link rel = "stylesheet" type = "text/css" href = "./assets/css/style.css"/>
+	
+</head>
+	
+<body >
+	<div id="facebookFeed-app" class="feed-app" ng-app="facebookFeed" ng-controller="feed" ng-class="{loading: preloader}">
+		<ul class="ff-post-list">
+			<li ng-repeat="(feed_index, feed) in feedData">
+				<div class="ff-header">
+					<a href="https://facebook.com/profile.php?id={{feed.user.id}}" target="_blank">{{feed.user.name}}</a>
+					<span class="ff-date">{{feed.date}}</span>
+				</div>
+
+				<div class="ff-body">
+					<div class="ff-photos" ng-if="feed.photos">
+						<a href="{{photo}}" ng-repeat="(photo_index, photo) in feed.photos track by $index" data-fancybox="photos-{{feed_index}}">
+							<img ng-src="{{photo}}" alt="photo">
+						</a>
+					</div>
+					
+					<div class="ff-video" ng-if="feed.video">
+						<a href="{{feed.video.url}}" class="ff-video-thumb" data-fancybox>
+							<img ng-src="{{feed.video.thumb}}" alt="thumb">
+						</a>
+						<div class="ff-video-info">
+							<div class="ff-video-title">{{feed.video.title}}</div>
+							<div class="ff-video-desc">{{feed.video.desc}}</div>
+						</div>
+					</div>
+
+					<div class="ff-body-text">
+						<div class="ff-title">{{feed.title}}</div>
+						<div class="ff-story">{{feed.story}}</div>
+						<div class="ff-messages">{{feed.body}}</div>
+					</div>
+				</div>
+
+				<div class="ff-footer">
+					<span><b>{{feed.likes}}</b> Like{{feed.likes > 1? "s": ""}}</span>
+					<span><b>{{feed.comments}}</b> Comment{{feed.comments > 1? "s": ""}}</span>
+					<a href="{{feed.link}}" target="_blank" class="ff-gotopost" ng-if="feed.link">go to post</a>
+				</div>
+			</li>
+		</ul>
+	</div>
+
+	<!-- App -->
+	<script type = "text/javascript" src = "./app/app.js"></script>
+	
+	<script type = "text/javascript" src = "./app/controllers/feed.js"></script>
+	<script type = "text/javascript" src = "./app/factories/feed.js"></script>
+	<script type = "text/javascript" src = "./app/services/service.js"></script> 
+</body>
+</html>
