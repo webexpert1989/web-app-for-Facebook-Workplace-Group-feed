@@ -24,15 +24,28 @@
 <body >
 	<div id="facebookFeed-app" class="feed-app" ng-app="facebookFeed" ng-controller="feed" ng-class="{loading: preloader}">
 		<ul class="ff-post-list">
-			<li ng-repeat="(feed_index, feed) in feedData">
+			<li ng-repeat="(feedIndex, feed) in feedData">
 				<div class="ff-header">
-					<a href="https://facebook.com/profile.php?id={{feed.user.id}}" target="_blank">{{feed.user.name}}</a>
-					<span class="ff-date">{{feed.date}}</span>
+					<div class="ff-user-photo">
+						<a href="https://facebook.com/{{feed.user.id}}" target="_blank">
+							<img ng-src="http://graph.facebook.com/{{feed.user.id}}/picture?type=square" alt="user photo">
+						</a>
+					</div>
+					<div class="ff-meta-info">
+						<a href="https://facebook.com/{{feed.user.id}}" target="_blank">{{feed.user.name}}</a>
+						<span class="ff-date">{{feed.date}}</span>
+					</div>
 				</div>
 
 				<div class="ff-body">
+					<div class="ff-body-text">
+						<div class="ff-title">{{feed.title}}</div>
+						<div class="ff-story">{{feed.story}}</div>
+						<div class="ff-messages">{{feed.body}}</div>
+					</div>
+					
 					<div class="ff-photos" ng-if="feed.photos">
-						<a href="{{photo}}" ng-repeat="(photo_index, photo) in feed.photos track by $index" data-fancybox="photos-{{feed_index}}">
+						<a href="{{photo}}" ng-repeat="(photo_index, photo) in feed.photos track by $index" data-fancybox="photos-{{feedIndex}}">
 							<img ng-src="{{photo}}" alt="photo">
 						</a>
 					</div>
@@ -46,18 +59,43 @@
 							<div class="ff-video-desc">{{feed.video.desc}}</div>
 						</div>
 					</div>
-
-					<div class="ff-body-text">
-						<div class="ff-title">{{feed.title}}</div>
-						<div class="ff-story">{{feed.story}}</div>
-						<div class="ff-messages">{{feed.body}}</div>
-					</div>
 				</div>
 
 				<div class="ff-footer">
-					<span><b>{{feed.likes}}</b> Like{{feed.likes > 1? "s": ""}}</span>
-					<span><b>{{feed.comments}}</b> Comment{{feed.comments > 1? "s": ""}}</span>
-					<a href="{{feed.link}}" target="_blank" class="ff-gotopost" ng-if="feed.link">go to post</a>
+					<div class="ff-footer-meta">
+						<span ng-click="showSubContent('likes', feedIndex)"><b>{{feed.likes.length}}</b> Like{{feed.likes.length > 1? "s": ""}}</span>
+						<span ng-click="showSubContent('comments', feedIndex)"><b>{{feed.comments.length}}</b> Comment{{feed.comments.length > 1? "s": ""}}</span>
+						<a href="{{feed.link}}" target="_blank" class="ff-gotopost" ng-if="feed.link">go to post</a>
+					</div>
+
+					<div class="ff-likes" ng-if="feed.likes.length" ng-class="{active: feed.show.likes}">
+						<div class="ff-like" ng-repeat="like in feed.likes track by $index">
+							<div class="ff-user-photo">
+								<a href="https://facebook.com/{{like.id}}" target="_blank">
+									<img ng-src="http://graph.facebook.com/{{like.id}}/picture?type=square" alt="user photo">
+								</a>
+							</div>
+							<div class="ff-meta-info">
+								<a href="https://facebook.com/{{like.id}}" target="_blank">{{like.name}}</a>
+							</div>
+						</div>
+					</div>
+					<div class="ff-comments" ng-if="feed.comments.length" ng-class="{active: feed.show.comments}">
+						<div class="ff-comment" ng-repeat="comment in feed.comments track by $index">
+							<div class="ff-comment-header">
+								<div class="ff-user-photo">
+									<a href="https://facebook.com/{{comment.from.id}}" target="_blank">
+										<img ng-src="http://graph.facebook.com/{{comment.from.id}}/picture?type=square" alt="user photo">
+									</a>
+								</div>
+								<div class="ff-meta-info">
+									<a href="https://facebook.com/{{comment.from.id}}" target="_blank">{{comment.from.name}}</a>
+									<span class="ff-date">{{comment.date}}</span>
+								</div>
+							</div>
+							<div class="ff-comment-body">{{comment.message}}</div>
+						</div>
+					</div>
 				</div>
 			</li>
 		</ul>

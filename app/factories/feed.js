@@ -22,6 +22,16 @@
 					parsedData = [];
 
 				for(let i in data) {
+					let commentsArr = [];
+
+					if(data[i].comments && data[i].comments.data && data[i].comments.data.length) {
+						for(let c_i in data[i].comments.data) {
+							commentsArr.push(Object.assign(data[i].comments.data[c_i], {
+								date: (new Date(data[i].comments.data[c_i].created_time * 1000)).format_date("D.M.Y H:i")
+							}));
+						}
+					}
+
 					parsedData[i] = {
 						type    : data[i].type || "",
 						user    : {
@@ -32,8 +42,8 @@
 						story   : (data[i].story || "").regulate(160),
 						body    : (data[i].message || "").regulate(360),
 						date    : (new Date(data[i].created_time * 1000)).format_date("D.M.Y H:i"),
-						likes   : data[i].likes? data[i].likes.data.length: 0,
-						comments: data[i].comments? data[i].comments.data.length: 0,
+						likes   : data[i].likes && data[i].likes.data? data[i].likes.data: [],
+						comments: commentsArr,
 						link    : data[i].actions && data[i].actions[0].link? data[i].actions[0].link: "",
 					};
 

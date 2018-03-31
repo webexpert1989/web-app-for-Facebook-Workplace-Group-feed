@@ -74,6 +74,7 @@ body, html {
 			list-style: none;
 			background-color: #fff;
 			border: 1px solid #dddfe2;
+			overflow: hidden;
 		
 			-webkit-border-radius: 3px;
 			-moz-border-radius: 3px;
@@ -81,24 +82,67 @@ body, html {
 			border-radius: 3px;
 
 			.ff-header {
-				margin-bottom: 10px;
+				margin-bottom: 15px;
 
-				a {
+				.ff-user-photo,
+				.ff-meta-info {
 					display: inline-block;
-					color: #365899;
-					font-size: 120%;
-					font-weight: 700;					
+					vertical-align: middle;
 				}
 
-				.ff-date {
-					margin-left: 15px;
-					display: inline-block;
-					color: #616770;
+				.ff-user-photo {
+					width: 40px;
+					height: 40px;
+					overflow: hidden;
+		
+					-webkit-border-radius: 50%;
+					-moz-border-radius: 50%;
+					-o-border-radius: 50%;
+					border-radius: 50%;
+
+					img {
+						display: block;
+					}
+				}
+
+				.ff-meta-info {
+					margin-left: 10px;
+					width: #{calc(100% - 60px)};
+
+					a {
+						display: inline-block;
+						color: #365899;
+						font-size: 120%;
+						font-weight: 700;					
+					}
+	
+					.ff-date {
+						margin-top: 2px;
+						display: block;
+						color: #616770;
+					}
 				}
 			}
 
 			.ff-body {
 				margin-bottom: 10px;
+
+				.ff-body-text {
+					margin-bottom: 10px;
+
+					.ff-title {
+						font-size: 14px;
+						font-weight: 700;
+					}
+
+					.ff-story {
+						font-style: italic;
+					}
+
+					.ff-messages {
+						margin-top: 8px;
+					}
+				}
 
 				.ff-photos,
 				.ff-video {
@@ -151,44 +195,110 @@ body, html {
 						}
 					}
 				}
-
-				.ff-body-text {
-					padding: 5px 10px;
-					border-left: 2px solid #ccc;
-
-					& > div {
-						margin-bottom: 5px;
-
-						&:last-of-type {
-							margin-bottom: 0;
-						}
-
-						&.ff-title {
-							font-weight: 700;
-						}
-
-						&.ff-story {
-							font-style: italic;
-						}
-					}
-				}
 			}
 
 			.ff-footer {
 				margin: 0 -10px -10px -10px;
-				padding: 10px;
 				background-color: #f2f3f5;
 				border-top: 1px solid #e1e2e3;
 
-				span {
-					margin-right: 10px;
+				.ff-footer-meta {
+					padding: 10px;
+
+					span {
+						margin-right: 10px;
+						cursor: pointer;
+					}
+	
+					.ff-gotopost {
+						float: right;
+						display: block;
+						font-weight: 700;
+						color: #365899;
+					}
 				}
 
-				.ff-gotopost {
-					float: right;
-					display: block;
-					font-weight: 700;
-					color: #365899;
+				.ff-likes,
+				.ff-comments {
+					margin: 0;
+					padding: 0;
+					max-height: 0;
+					background-color: #fff;
+					overflow: hidden;
+
+					-webkit-transition: max-height .3s;
+					-moz-transition: max-height .3s;
+					-o-transition: max-height .3s;
+					transition: max-height .3s;
+
+					&.active {
+						max-height: 180px;
+						overflow-y: auto;
+					}
+
+					& > div {
+						margin: 10px;
+						padding-bottom: 10px;
+						border-bottom: 1px solid #e1e2e3;
+
+						&:last-child {
+							padding-bottom: 0;
+							border-bottom-width: 0;
+						}
+					}
+
+					.ff-user-photo,
+					.ff-meta-info {
+						display: inline-block;
+						vertical-align: middle;
+					}
+
+					.ff-user-photo {
+						position: relative;
+						width: 36px;
+						height: 36px;
+
+						img {
+							display: block;
+			
+							-webkit-border-radius: 50%;
+							-moz-border-radius: 50%;
+							-o-border-radius: 50%;
+							border-radius: 50%;
+						}
+					}
+
+					.ff-meta-info {
+						margin-left: 10px;
+						width: #{calc(100% - 60px)};
+
+						a {
+							display: inline-block;
+							color: #365899;
+							font-weight: 700;					
+						}
+		
+						.ff-date {
+							margin-top: 2px;
+							display: block;
+							color: #616770;
+						}
+					}
+				}
+
+				.ff-likes .ff-user-photo:before {
+					content: "";
+					position: absolute;
+					bottom: -3px;
+					right: -3px;
+					z-index: 9;
+					width: 17px;
+					height: 17px;
+					background: transparent url(../images/facebook-icons.png) -17px -550px no-repeat;
+				}
+
+				.ff-comments .ff-comment-body {
+					margin-top: 10px;
 				}
 			}
 		}
