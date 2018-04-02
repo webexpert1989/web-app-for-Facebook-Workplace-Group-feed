@@ -11,8 +11,9 @@
 			if(!$scope.feedData[feedIndex].show) {
 				Object.assign($scope.feedData[feedIndex], {
 					show: {
-						likes   : false,
-						comments: false
+						likes      : false,
+						comments   : false,
+						attachments: false
 					}
 				});
 			}

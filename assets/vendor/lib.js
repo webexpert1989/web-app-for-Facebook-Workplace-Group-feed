@@ -39,6 +39,6 @@ if (!Date.prototype.format_date) {
 // date prototype function
 if (!String.prototype.regulate) {
 	String.prototype.regulate = function (len, symbols) {
-		return len > 3 && this.length > len? this.substring(0, len - 3) + (symbols || "..."): this;
+		return this && len > 3 && this.length > len? this.substring(0, len - 3) + (symbols || "..."): this;
 	};
 }

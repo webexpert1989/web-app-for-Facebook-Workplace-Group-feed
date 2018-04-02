@@ -205,6 +205,12 @@ body, html {
 				.ff-footer-meta {
 					padding: 10px;
 
+					&:after {
+						content: "";
+						display: block;
+						clear: both;
+					}
+
 					span {
 						margin-right: 10px;
 						cursor: pointer;
@@ -219,7 +225,8 @@ body, html {
 				}
 
 				.ff-likes,
-				.ff-comments {
+				.ff-comments,
+				.ff-attachments {
 					margin: 0;
 					padding: 0;
 					max-height: 0;
@@ -300,8 +307,56 @@ body, html {
 				.ff-comments .ff-comment-body {
 					margin-top: 10px;
 				}
+
+				.ff-attachments {
+					a {
+						display: block;
+						text-decoration: none;
+
+						&:hover span {
+							text-decoration: underline;
+						}
+					}
+
+					.ff-attachment-icon {
+						display: inline-block;
+						width: 26px;
+						height: 26px;
+						vertical-align: middle;
+					}
+
+					.ff-attachment-title {
+						margin-left: 10px;
+						display: inline-block;
+						vertical-align: middle;
+						color: #000;
+					}
+				}
 			}
 		}
 	}
 }
 
+.fancybox-slide--iframe {
+	.fancybox-error,
+	.fancybox-iframe {
+		background-color: #000;
+	}
+	
+	.fancybox-content {
+		height: auto !important;
+
+		&:before {
+			content: "";
+			display: block;
+			height: 0;
+			padding-bottom: 56.25%;
+		}
+
+		iframe {
+			position: absolute;
+			left: 0;
+			top: 0;
+		}
+	}
+}
